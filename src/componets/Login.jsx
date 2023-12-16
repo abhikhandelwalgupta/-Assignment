@@ -1,23 +1,62 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Users from "../data/users.json"
+import { useCookies } from 'react-cookie';
+
 
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
+    const [usersData, setUsersData] = useState()
+    const [cookies, setCookie] = useCookies(['users']);
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (cookies.name !== undefined) {
+            navigate("/dashboard")
+        }
+    }, [])
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
     const { email, password } = formData
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
+
         console.log(email, password);
 
-        if (!email || !password) {
+        if ((email === undefined && email === null) || (password === undefined && password === null)) {
             alert("Please fill out all fields")
             return
         }
+
+
+
+        let { users } = Users;
+        const isUser = await users.filter((user) => user.email === email && user.password === password)
+
+        if (!isUser.length) {
+            alert("Please enter valid email id ")
+            return
+        }
+        setUsersData(isUser)
+        console.log(usersData);
+
+        if (!usersData) {
+            alert("please try again. Something went wrong ")
+            return
+        }
+        console.log(usersData.length);
+        localStorage.setItem("user", JSON.stringify(usersData[0]))
+        setCookie('name', JSON.stringify(usersData[0]));
+
+        navigate("/dashboard/home")
+
+
     }
 
     const handleOnChange = (e) => {
