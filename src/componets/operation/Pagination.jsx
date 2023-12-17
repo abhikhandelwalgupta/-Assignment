@@ -34,13 +34,13 @@ const Pagination = ({ recourdPerPage, data, handleDelete }) => {
             {
                 records?.map((user, i) => (
                     <div className={`flex items-center justify-between border border-gray-700 `} key={user?.id}>
-                        <div className='flex px-5 py-3 '>{i + 1}</div>
-                        <div className='flex px-5 py-3'>{user.firstName} {user.lastName}</div>
-                        <div className='flex px-5 py-3'>{user.email} </div>
-                        <div className='flex px-5 py-3'>{user.username} </div>
-                        <div className='flex px-5 py-3'>{user.phone} </div>
-                        <div className='flex px-5 py-3 font-bold text-xl cursor-pointer' onClick={() => handleDelete(user.id)}><TbTrashX /> </div>
-
+                        <div className='flex pr-2 pl-3 py-3  w-[8%]'>{i + 1}</div>
+                        <div className='flex px-5 py-3 mx-auto w-[20%]'>{user.firstName} {user.lastName}</div>
+                        <div className='flex px-3 py-3 mx-auto w-[22%]'>{user.email} </div>
+                        <div className='flex px-5 py-3 mx-auto w-[15%]'>{user.username} </div>
+                        <div className='flex px-5 py-3 mx-auto w-[20%]'>{user.phone} </div>
+                        <div className='flex px-5 py-3 mx-auto w-[5%] -ml-3'>{user.age}y</div>
+                        <div className='flex px-5 py-3 font-bold text-xl cursor-pointer mx-auto w-[10%] ml-3' onClick={() => handleDelete(user.id)}><TbTrashX /> </div>
                     </div>
                 ))
             }

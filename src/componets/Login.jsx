@@ -44,19 +44,16 @@ const Login = () => {
             return
         }
         setUsersData(isUser)
-        console.log(usersData);
+
 
         if (!usersData) {
             alert("please try again. Something went wrong ")
             return
         }
-        console.log(usersData.length);
+
         localStorage.setItem("user", JSON.stringify(usersData[0]))
         Cookies.set('users', JSON.stringify(usersData[0]));
-
         navigate("/dashboard/home")
-
-
     }
 
     const handleOnChange = (e) => {

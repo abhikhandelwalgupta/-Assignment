@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import Users from "../../data/users.json"
 import Pagination from '../operation/Pagination';
+import { FaSort } from "react-icons/fa";
+
 
 const Home = () => {
 
 
     const [usersData, setUsersData] = useState(Users.users);
     const [searchVal, setSearchVal] = useState("")
+    const [ageSort, setAgeSort] = useState("ace")
+    const [nameSort, setNameSort] = useState("ace")
 
 
 
@@ -41,6 +45,59 @@ const Home = () => {
         setUsersData(deleteFilter)
     }
 
+    const handleNameSorting = () => {
+
+        if (nameSort === "ace") {
+            setUsersData([...usersData.sort((a, b) => {
+                let fa = a.firstName.toLowerCase(),
+                    fb = b.firstName.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            })])
+            setNameSort("desc")
+        } else {
+            setUsersData([...usersData.sort((a, b) => {
+                let fa = a.firstName.toLowerCase(),
+                    fb = b.firstName.toLowerCase();
+                if (fa < fb) {
+                    return 1;
+                }
+                if (fa > fb) {
+                    return -1;
+                }
+                return 0;
+            })])
+            setNameSort("ace")
+        }
+    }
+
+    const handleAgeSorting = () => {
+        if (ageSort === "ace") {
+
+            setUsersData([...usersData.sort((a, b) => {
+                return a.age - b.age;
+            })])
+            setAgeSort("desc")
+        } else {
+            setUsersData([...usersData.sort((a, b) => {
+                return b.age - a.age;
+            })])
+            setAgeSort("ace")
+        }
+
+
+        console.log(usersData);
+    }
+    // useEffect(() => {
+    //     handleAgeSorting()
+    // }, [usersData])
+
 
 
     return (
@@ -59,12 +116,13 @@ const Home = () => {
             <div className='flex flex-col w-full gap-24'>
                 <div className='my-8 text-gray-900'>
                     <div className='flex justify-between border-b border-black'>
-                        <p className='px-5 py-3 '>S. no</p>
-                        <p className='px-5 py-3'>Name </p>
-                        <p className='px-5 py-3'> Email </p>
-                        <p className='px-5 py-3'>Username</p>
-                        <p className='px-5 py-3'>phone number</p>
-                        <p className='px-5 py-3'>Action</p>
+                        <p className='flex pr-2 pl-3 py-3 items-center w-[8%] '>S. no </p>
+                        <p className='flex px-5 mx-auto py-3 w-[20%] items-center gap-x-0.5 cursor-pointer' onClick={handleNameSorting}>Name <span className='text-xs'><FaSort /></span></p>
+                        <p className='flex px-3 py-3 w-[22%]'> Email </p>
+                        <p className='flex px-5 py-3 mx-auto w-[15%]'>Username</p>
+                        <p className='flex px-5 py-3 mx-auto w-[20%]'>phone number</p>
+                        <p className='flex px-5 py-3 mx-auto w-[5%] items-center gap-x-0.5 cursor-pointer mr-3' onClick={handleAgeSorting}>Age <span className='text-xs'><FaSort /></span></p>
+                        <p className='flex px-5 py-3 mx-auto w-[10%]'>Action</p>
                     </div>
                     {
                         <Pagination recourdPerPage={10} data={usersData} handleDelete={handleDelete} />
