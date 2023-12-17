@@ -3,20 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import Users from "../data/users.json"
-import { useCookies } from 'react-cookie';
+//import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
+
 
 
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [usersData, setUsersData] = useState()
-    const [cookies, setCookie] = useCookies(['users']);
+    // const [cookies, setCookie ,get] = useCookies(['users']);
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        if (cookies.name !== undefined) {
-            navigate("/dashboard")
+        if (Cookies.get('users') === undefined) {
+            navigate("/")
         }
     }, [])
     const [formData, setFormData] = useState({
@@ -27,14 +29,12 @@ const Login = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(email, password);
+
 
         if ((email === undefined && email === null) || (password === undefined && password === null)) {
             alert("Please fill out all fields")
             return
         }
-
-
 
         let { users } = Users;
         const isUser = await users.filter((user) => user.email === email && user.password === password)
@@ -52,7 +52,7 @@ const Login = () => {
         }
         console.log(usersData.length);
         localStorage.setItem("user", JSON.stringify(usersData[0]))
-        setCookie('name', JSON.stringify(usersData[0]));
+        Cookies.set('users', JSON.stringify(usersData[0]));
 
         navigate("/dashboard/home")
 

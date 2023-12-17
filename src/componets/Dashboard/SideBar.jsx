@@ -1,13 +1,14 @@
 import React from 'react'
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 
 const SideBar = () => {
     const navigate = useNavigate();
-    const [removeCookie] = useCookies(['users']);
+
+
     const logout = () => {
         localStorage.removeItem('user');
-        removeCookie('users')
+        Cookies.remove('users')
         navigate("/")
 
     }

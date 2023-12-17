@@ -67,7 +67,7 @@ const Home = () => {
                         <p className='px-5 py-3'>Action</p>
                     </div>
                     {
-                        <Pagination recourdPerPage={5} data={usersData} handleDelete={handleDelete} />
+                        <Pagination recourdPerPage={10} data={usersData} handleDelete={handleDelete} />
                     }
                 </div>
 
