@@ -12,7 +12,6 @@ import Cookies from 'js-cookie';
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [usersData, setUsersData] = useState()
-    // const [cookies, setCookie ,get] = useCookies(['users']);
     const navigate = useNavigate();
 
 
@@ -28,8 +27,6 @@ const Login = () => {
     const { email, password } = formData
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-
-
 
         if ((email === undefined && email === null) || (password === undefined && password === null)) {
             alert("Please fill out all fields")

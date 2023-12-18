@@ -4,6 +4,7 @@ import SignUp from "./componets/SignUp";
 import PrivateRoute from "./componets/PrivateRoute";
 import { Dashboard } from "./componets/Dashboard";
 import Home from "./componets/Dashboard/Home";
+import AddUser from "./componets/Dashboard/AddUser";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute><Dashboard /></PrivateRoute>} >
         <Route path="/dashboard/home" element={<Home />} />
+        <Route path="/dashboard/add-user" element={<AddUser />} />
         </Route>
       </Routes>
     </div>

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Users from "../../data/users.json"
 import Pagination from '../operation/Pagination';
 import { FaSort } from "react-icons/fa";
+import { exportCSV } from '../operation/ExportCsv';
 
-
+const header = ['id', 'firstName', 'lastName', 'age', 'gender', 'email', 'phone', 'username', 'password', 'image']
 const Home = () => {
 
 
@@ -15,19 +16,7 @@ const Home = () => {
 
 
     const exportUserList = async () => {
-        const userArray = await usersData.map(user => Object.values(user))
-        userArray.unshift(['id', 'firstName', 'lastName', 'age', 'gender', 'email', 'phone', 'username', 'password', 'image'])
-
-        const csvContent = "data:text/csv;charset=utf-8,"
-            + userArray.map(row => row.join(",")).join("\n");
-
-        const encodedUri = encodeURI(csvContent);
-        let temp_link = document.createElement('a')
-        temp_link.setAttribute("href", encodedUri)
-        temp_link.setAttribute("download", `users.csv`)
-        document.body.appendChild(temp_link);
-        document.body.removeChild(temp_link)
-        temp_link.click();
+        exportCSV({ usersData, header })
     }
 
     const handleSearchClick = async () => {
@@ -46,7 +35,6 @@ const Home = () => {
     }
 
     const handleNameSorting = () => {
-
         if (nameSort === "ace") {
             setUsersData([...usersData.sort((a, b) => {
                 let fa = a.firstName.toLowerCase(),
@@ -79,7 +67,6 @@ const Home = () => {
 
     const handleAgeSorting = () => {
         if (ageSort === "ace") {
-
             setUsersData([...usersData.sort((a, b) => {
                 return a.age - b.age;
             })])
@@ -91,15 +78,7 @@ const Home = () => {
             setAgeSort("ace")
         }
 
-
-        console.log(usersData);
     }
-    // useEffect(() => {
-    //     handleAgeSorting()
-    // }, [usersData])
-
-
-
     return (
         <>
             <div className='flex items-end justify-between right-36'>

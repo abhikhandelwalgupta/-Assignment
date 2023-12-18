@@ -4,6 +4,7 @@ import { TbTrashX } from "react-icons/tb";
 
 
 const Pagination = ({ recourdPerPage, data, handleDelete }) => {
+    console.log(data);
     const [currentPage, setCurrentPage] = React.useState(1)
     const lastIndex = currentPage * recourdPerPage
     const firstIndex = lastIndex - recourdPerPage

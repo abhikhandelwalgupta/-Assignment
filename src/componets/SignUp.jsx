@@ -1,28 +1,54 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Users from "../data/users.json"
+import Cookies from 'js-cookie';
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfrimPassowrd, setConfrimShowPassword] = useState(false)
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
+        id: '',
         email: '',
         password: '',
         confrimpassword: '',
         firstName: '',
-        lastName: ''
+        lastName: '',
+        age: ''
     })
 
-    const { email, password, confrimpassword, firstName, lastName } = formData
+    const { email, password, confrimpassword, firstName, lastName, age, id } = formData
 
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
 
         if (!email || !password || !confrimpassword || !firstName || !lastName) {
             alert("Please Enter all fields ")
             return
         }
+        if (password !== confrimpassword) {
+            alert("Confirm password should be same as password")
+            return
+        }
+
+
+        formData.age = Math.floor(Math.random() * 100)
+        formData.id = Users.users.length + 1;
+
+        const isUserExist = Users.users.filter((user) => user.email === formData.email)
+        if (isUserExist.length > 0) {
+            alert("This account is already exist")
+            return
+        }
+
+
+        localStorage.setItem("user", JSON.stringify(formData))
+        Cookies.set('users', JSON.stringify(formData));
+        Users.users.push(formData)
+        navigate("/dashboard/home")
+
 
     }
 
