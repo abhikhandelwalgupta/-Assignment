@@ -27,12 +27,12 @@ const SideBar = () => {
                     </div>
                     Home
                 </Link>
-                <Link to="/dashboard/add-user" className='flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none' tabIndex="0">
+                {/* <Link to="/dashboard/add-user" className='flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-gray-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none' tabIndex="0">
                     <div className="grid place-items-center mr-4">
                         <FaHouseUser className='h-5 w-5' />
                     </div>
                     Add Users
-                </Link>
+                </Link> */}
                 <button tabIndex="0" className="flex items-center w-full p-3 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none"
                     onClick={() => logout()}
                 >
